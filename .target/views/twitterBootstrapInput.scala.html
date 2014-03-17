@@ -1,0 +1,9 @@
+@(elements: helper.FieldElements)
+
+@***************************************************
+* Generate input according twitter bootstrap rules *
+***************************************************@
+<div data-role="fieldcontain" class="ui-hide-label @if(elements.hasErrors) {ui-state-highlight}">
+	<label for="@elements.id">@elements.label</label>
+	<input type="text" name="@elements.id" id="@elements.id" value="" placeholder="@elements.label"/>
+</div>

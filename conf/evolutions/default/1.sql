@@ -3,24 +3,45 @@
 
 # --- !Ups
 
-create table task (
-  id                        bigint not null,
-  label                     varchar(255),
-  constraint pk_task primary key (id))
+create table exchange_offices (
+  id                        bigint auto_increment not null,
+  name                      varchar(255),
+  address                   varchar(255),
+  city                      varchar(255),
+  country                   varchar(255),
+  phone                     varchar(255),
+  longitude                 float,
+  latitude                  float,
+  likes                     integer,
+  dislikes                  integer,
+  created_on                datetime not null,
+  last_updated_on           datetime not null,
+  constraint pk_exchange_offices primary key (id))
 ;
 
-create sequence task_seq;
+create table exchange_rates (
+  id                        bigint auto_increment not null,
+  curr_from                 varchar(255),
+  curr_to                   varchar(255),
+  amount                    decimal(38,2),
+  eo_id                     bigint,
+  created_on                datetime not null,
+  last_updated_on           datetime not null,
+  constraint pk_exchange_rates primary key (id))
+;
 
+alter table exchange_rates add constraint fk_exchange_rates_eo_1 foreign key (eo_id) references exchange_offices (id) on delete restrict on update restrict;
+create index ix_exchange_rates_eo_1 on exchange_rates (eo_id);
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists task;
+drop table exchange_offices;
 
-SET REFERENTIAL_INTEGRITY TRUE;
+drop table exchange_rates;
 
-drop sequence if exists task_seq;
+SET FOREIGN_KEY_CHECKS=1;
 

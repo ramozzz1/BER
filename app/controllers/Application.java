@@ -1,36 +1,48 @@
 package controllers;
 
-import models.Task;
-import play.*;
-import play.data.Form;
+import models.ExchangeOffice;
 import play.mvc.*;
+import play.data.*;
+import static play.data.Form.*;
 import views.html.*;
 
 public class Application extends Controller {
 
-	static Form<Task> taskForm = Form.form(Task.class);
-	
     public static Result index() {
-    	return redirect(routes.Application.tasks());
+    	return redirect(routes.Application.eos());
     }
-      
-    public static Result tasks() {
-    	return ok(views.html.index.render(Task.all(), taskForm));
+    
+    public static Result eos() {
+    	return ok(views.html.index.render(ExchangeOffice.all()));
     }
   
-    public static Result newTask() {
-    	Form<Task> filledForm = taskForm.bindFromRequest();
-    	if(filledForm.hasErrors()) {
-    		return badRequest(views.html.index.render(Task.all(), filledForm));
-    	} 
-    	else {
-    		Task.create(filledForm.get());
-    		return redirect(routes.Application.tasks());  
+    public static Result createEO() {
+    	Form<ExchangeOffice> eoForm = form(ExchangeOffice.class);
+        return ok(
+        		createEO.render(eoForm)
+        );  
+    }
+    
+    public static Result detailsEO(Long id) {
+    	ExchangeOffice eo = ExchangeOffice.get(id);
+    	if(eo==null) {
+    		return badRequest();
     	}
+    	
+    	return ok(detailsEO.render(eo));  
+    }
+    
+    public static Result saveEO() {
+    	Form<ExchangeOffice> eoForm = form(ExchangeOffice.class).bindFromRequest();
+        if(eoForm.hasErrors()) {
+            return badRequest(createEO.render(eoForm));
+        }
+        ExchangeOffice.create(eoForm.get());
+    	return redirect(routes.Application.eos());  
     }
   
-    public static Result deleteTask(Long id) {
-    	Task.delete(id);
-    	return redirect(routes.Application.tasks());
+    public static Result deleteEO(Long id) {
+    	ExchangeOffice.delete(id);
+    	return redirect(routes.Application.eos());
     }
 }

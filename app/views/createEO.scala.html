@@ -1,0 +1,29 @@
+@(eoForm: Form[ExchangeOffice])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main("Add exchange office") {
+    
+    <h1>TODO: THE EDIT/ADD FORM OF AN EO (SPYROS)</h1>
+    
+    <h2>Add an exhange office</h2>
+    
+    @form(routes.Application.saveEO()) {
+        
+        <fieldset>
+        
+            @inputText(eoForm("name"), '_label -> "Name")
+            @inputText(eoForm("address"), '_label -> "Address")
+            @inputText(eoForm("city"), '_label -> "City")
+            @inputText(eoForm("country"), '_label -> "Country")
+            @inputText(eoForm("phone"), '_label -> "Phone")
+
+        </fieldset>
+        
+        <input type="submit" value="Add" class="btn primary">
+        
+    }
+    
+}
