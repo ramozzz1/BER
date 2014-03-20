@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.persistence.Table;
 
+import com.avaje.ebean.Page;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 import play.data.validation.Constraints.Required;
@@ -60,7 +61,11 @@ public class ExchangeOffice extends Model {
 	public static Finder<Long,ExchangeOffice> find = new Finder<Long, ExchangeOffice>(Long.class, ExchangeOffice.class);
 	
 	public static List<ExchangeOffice> all() {
-		return find.all();
+		return find.where().ne("id", -1).findList();
+	}
+	
+	public static List<ExchangeOffice> search(int page, int limit, float lat, float lon) {
+		return find.where().ne("id", -1).findList();
 	}
 
 	public static void create(ExchangeOffice eo) {
@@ -73,5 +78,13 @@ public class ExchangeOffice extends Model {
 	
 	public static void delete(Long id) {
 		find.ref(id).delete();
+	}
+
+	public static Page<ExchangeOffice> page(int page, int pageSize, float lat, float lon) {
+		return find.where()
+                .orderBy("id DESC")
+                .findPagingList(pageSize)
+                .setFetchAhead(false)
+                .getPage(page);
 	}
 }

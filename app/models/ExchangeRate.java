@@ -12,6 +12,7 @@ import javax.persistence.Version;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
@@ -42,5 +43,18 @@ public class ExchangeRate extends Model {
  
     @Version
     public Timestamp last_updated_on;
+    
+    public static Finder<Long,ExchangeRate> find = new Finder<Long, ExchangeRate>(Long.class, ExchangeRate.class);
 
+    public static BigDecimal getExchangeRateAmount(long eoId, String currencyFrom, String currencyTo) {
+    	ExchangeRate er = find.where()
+				    		.eq("currFrom", currencyFrom)
+				    		.eq("currTo", currencyTo)
+				    		.eq("eo_id", eoId)
+				    		.findUnique();
+    	if(er!=null)
+    		return er.amount;
+    	else
+    		return new BigDecimal(-1);
+    }
 }

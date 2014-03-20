@@ -3,8 +3,26 @@
 @import helper._
 
 @main("BER") {
-    <h1>TODO: THE DETAILS OF THIS EO BASED ON THE MOCKUP (RAFIK)</h1>
     
+    <div class="ui-body exchange-office-details">
+    	<h3>@eo.name</h3>
+    	<p>@eo.address, @eo.city <br/>
+    	@eo.country</p>
+    	
+    	@if(eo.phone) {
+  			<p>Tel: @eo.phone</p>
+		}
+    </div>
     
-    <span>@eo.name</span>
+    <ul data-role="listview" class="exchange-rates-list">
+		<li>
+			<h2><strong>EUR -> USD</strong></h2>
+			<h2 class="ui-li-aside"><strong>1.36</strong></h2>
+		</li>
+		
+		<li>
+			<h2><strong>EUR -> GBP</strong></h2>
+			<h2 class="ui-li-aside"><strong>0.76</strong></h2>
+		</li>
+	</ul>
 }

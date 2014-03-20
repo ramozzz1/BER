@@ -13,7 +13,7 @@ public class Application extends Controller {
     }
     
     public static Result eos() {
-    	return ok(views.html.index.render(ExchangeOffice.all()));
+    	return ok(views.html.list.render(ExchangeOffice.all()));
     }
   
     public static Result createEO() {

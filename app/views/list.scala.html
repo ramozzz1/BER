@@ -1,0 +1,53 @@
+@(eos: List[ExchangeOffice])
+
+@import helper._
+
+@main("BER") {
+    
+    <div id="actions">
+        
+        <form action="#" method="GET">
+	        <div data-role="fieldcontain">
+	          <label for="curr-from" class="select"><strong>I have:</strong></label>
+	          <select name="curr-from" id="curr-from">
+	            <option value="eur">EUR</option>
+	            <option value="usd">USD</option>
+	          </select>
+	        </div>
+	        
+	        <div data-role="fieldcontain">
+	          <label for="curr-to" class="select"><strong>I want:</strong></label>
+	          <select name="curr-to" id="curr-to">
+	            <option value="eur">EUR</option>
+	            <option value="usd">USD</option>
+	          </select>
+	        </div>
+            
+            <input type="search" id="searchbox" name="location" value="Current location" placeholder="Search by address or place...">
+            
+        </form>
+        
+    </div>
+    
+	    <div class="ui-body">
+	    	<h1>
+	    		Official Rate:
+	    	</h1>
+	    	<h3>
+	    		EUR -> USD 1.37 
+	    	</h3>
+	    </div>
+    
+    
+    <ul data-role="listview" data-inset="true">
+        @for(eo <- eos) {
+        	<li>
+        		<a href="@routes.Application.detailsEO(eo.id)" class="ui-link-inherit">
+					<h3>@eo.name</h3>
+					<p><strong>EUR -> USD 1.36</strong></p>
+					<p class="ui-li-aside"><strong>100m</strong></p>
+				</a>
+			</li>
+        }
+    </ul>
+}
