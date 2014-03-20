@@ -11,6 +11,8 @@ GET    /eo/new                 	controllers.Application.createEO()
 POST    /eo                  	controllers.Application.saveEO()
 POST    /eo/:id/delete       	controllers.Application.deleteEO(id: Long)
 GET    /eo/:id                 	controllers.Application.detailsEO(id: Long)
+GET    /eo/:id/addER            controllers.Application.createER(id: Long)
+POST    /eo/:id/addER            controllers.Application.saveER(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

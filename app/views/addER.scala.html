@@ -1,0 +1,24 @@
+@(eoForm: Form[ExchangeRate], eoId: Long)
+
+@import helper._
+
+@main("Add exchange rate") {
+   
+    
+    <h2>Add an exhange rate</h2>
+    
+    @form(routes.Application.saveER(eoId)) {
+        
+        <fieldset>
+        	<input type="hidden" name="eo_id" value="@eoId">
+            @select(eoForm("currFrom"),options(ExchangeRate.currencies), '_label -> "Currency From", '_default -> "Currency From")
+            @select(eoForm("currTo"),options(ExchangeRate.currencies), '_label -> "Currency To", '_default -> "Currency To")
+            @inputText(eoForm("amount"), '_label -> "Amount")
+
+        </fieldset>
+        
+        <input type="submit" value="Add" class="btn primary">
+        
+    }
+    
+}

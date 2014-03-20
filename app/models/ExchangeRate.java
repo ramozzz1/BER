@@ -1,6 +1,8 @@
 package models;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.ArrayList;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -56,5 +58,17 @@ public class ExchangeRate extends Model {
     		return er.amount;
     	else
     		return new BigDecimal(-1);
+    }
+    
+    public static void create(ExchangeRate er) {
+		er.save();
+	}
+    
+    public static List<String> currencies() {
+    	List currencies = new ArrayList<String>();
+    	currencies.add("EUR");
+    	currencies.add("USD");
+    	currencies.add("GBP");
+    	return currencies;
     }
 }
